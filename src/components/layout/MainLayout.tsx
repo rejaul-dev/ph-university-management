@@ -1,5 +1,7 @@
-import { Layout, Menu, MenuProps } from "antd";
+import { Button, Layout, Menu, MenuProps } from "antd";
 import { NavLink, Outlet } from "react-router-dom";
+import { logout } from "../../redux/features/auth/authSlice";
+import { useAppDispatch } from "../../redux/hook";
 
 const { Header, Content, Footer, Sider } = Layout;
 
@@ -29,6 +31,12 @@ const items: MenuProps["items"] = [
 ];
 
 const MainLayout = () => {
+  const dispatch = useAppDispatch();
+
+  const handleLogout = () => {
+    dispatch(logout());
+  };
+
   return (
     <Layout style={{ height: "100vh" }}>
       <Sider
@@ -60,7 +68,9 @@ const MainLayout = () => {
         />
       </Sider>
       <Layout>
-        <Header style={{ padding: 0 }} />
+        <Header>
+          <Button onClick={handleLogout}>Logout</Button>
+        </Header>
         <Content style={{ margin: "24px 16px 0" }}>
           <div
             style={{
